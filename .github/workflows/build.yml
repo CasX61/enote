@@ -4,13 +4,12 @@ name: Build eNote
 # - Windows  -> portable eNote.exe (kein Installer)
 # - macOS    -> .dmg (universal: Apple Silicon + Intel)
 #
-# Push auf main / manuell -> Build + Artefakte (zum Testen).
-# Push eines Tags v* (z.B. v0.1.0) -> zusätzlich GitHub-Release mit den
-# Dateien als dauerhafte Direkt-Downloads.
+# Läuft NUR bei einem Tag v* (z.B. v1.0.1) oder manuell ("Run workflow").
+# Der Tag-Build erstellt automatisch ein GitHub-Release mit .exe + .dmg.
+# Normale Pushes auf main lösen KEINEN Build aus.
 
 on:
   push:
-    branches: [main]
     tags: ["v*"]
   workflow_dispatch:
 

@@ -53,12 +53,11 @@ jobs:
         with:
           args: ${{ matrix.args }}
 
-      - name: Installer/Bundles als Artefakt hochladen
+      - name: Artefakte hochladen (portable .exe + .dmg)
         uses: actions/upload-artifact@v4
         with:
           name: enote-${{ matrix.platform }}
           if-no-files-found: warn
           path: |
-            src-tauri/target/**/release/bundle/**/*.exe
-            src-tauri/target/**/release/bundle/**/*.msi
-            src-tauri/target/**/release/bundle/**/*.dmg
+            src-tauri/target/**/release/eNote.exe
+            src-tauri/target/**/release/bundle/dmg/*.dmg

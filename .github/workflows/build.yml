@@ -55,6 +55,17 @@ jobs:
       - name: Frontend-Abhängigkeiten installieren
         run: npm ci
 
+      # Bei einem Tag v0.2.0 die Version 0.2.0 in package.json, tauri.conf.json
+      # und Cargo.toml setzen — nur für diesen Build, wird nicht committet.
+      - name: Version aus Tag setzen
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          V="${GITHUB_REF_NAME#v}"
+          echo "Setze Version $V"
+          V="$V" node -e "const fs=require('fs');for(const p of ['package.json','src-tauri/tauri.conf.json']){const j=JSON.parse(fs.readFileSync(p));j.version=process.env.V;fs.writeFileSync(p,JSON.stringify(j,null,2)+'\n')}"
+          V="$V" node -e "const fs=require('fs');const p='src-tauri/Cargo.toml';fs.writeFileSync(p,fs.readFileSync(p,'utf8').replace(/^version = .*/m,'version = \"'+process.env.V+'\"'))"
+
       - name: Tauri-App bauen
         uses: tauri-apps/tauri-action@v0
         with:

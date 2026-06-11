@@ -20,7 +20,8 @@ jobs:
             args: "--target universal-apple-darwin"
             rust-targets: "aarch64-apple-darwin,x86_64-apple-darwin"
           - platform: windows-latest
-            args: ""
+            # Nur portable eNote.exe, keine Installer (NSIS/MSI).
+            args: "--no-bundle"
             rust-targets: ""
 
     runs-on: ${{ matrix.platform }}

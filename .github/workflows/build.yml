@@ -1,17 +1,23 @@
 name: Build eNote
 
 # Baut die App auf nativen Runnern (kein Cross-Compile nötig):
-# - Windows  -> .exe (NSIS) + .msi
+# - Windows  -> portable eNote.exe (kein Installer)
 # - macOS    -> .dmg (universal: Apple Silicon + Intel)
-# Läuft bei Push auf main und manuell über "Run workflow".
+#
+# Push auf main / manuell -> Build + Artefakte (zum Testen).
+# Push eines Tags v* (z.B. v0.1.0) -> zusätzlich GitHub-Release mit den
+# Dateien als dauerhafte Direkt-Downloads.
 
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   workflow_dispatch:
 
 jobs:
   build:
+    permissions:
+      contents: write # nötig, um Release-Assets anzuhängen
     strategy:
       fail-fast: false
       matrix:
@@ -60,5 +66,13 @@ jobs:
           name: enote-${{ matrix.platform }}
           if-no-files-found: warn
           path: |
+            src-tauri/target/**/release/eNote.exe
+            src-tauri/target/**/release/bundle/dmg/*.dmg
+
+      - name: An GitHub-Release anhängen (nur bei Tag v*)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
             src-tauri/target/**/release/eNote.exe
             src-tauri/target/**/release/bundle/dmg/*.dmg

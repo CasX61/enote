@@ -2,9 +2,9 @@
 
 Lokale, offline-first Desktop-Notiz-App (Tauri v2 + React + SQLite). macOS & Windows.
 
-STRG + Enter - Todo Bestätigen
-STRG - L - Todo Erstellen
-STRG - N - Notiz erstellen
+- STRG + Enter - Todo Bestätigen
+- STRG - L - Todo Erstellen
+- STRG - N - Notiz erstellen
 
 Pläne:
 

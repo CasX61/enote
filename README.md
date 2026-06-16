@@ -2,6 +2,15 @@
 
 Lokale, offline-first Desktop-Notiz-App (Tauri v2 + React + SQLite). macOS & Windows.
 
+STRG + Enter - Todo Bestätigen
+STRG - L - Todo Erstellen
+STRG - N - Notiz erstellen
+
+Pläne:
+
+- Darkmode
+- Notizensuche
+
 ## Neue Version veröffentlichen
 
 Die Versionsnummer wird **automatisch aus dem Tag** gezogen — du musst keine Datei
